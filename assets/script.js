@@ -7,7 +7,6 @@ historyHandler()
 document.getElementById("searchBtn").addEventListener("click", function(event) {
     event.preventDefault()
     weatherData()
-    historyHandler()
 })
 
 function weatherData() {
@@ -37,11 +36,12 @@ function historyHandler() {if (localStorage.length > 0) {
     var lineIndex = 5
     var startHis = localStorage.index 
     var endHis = localStorage.index - 5
-    for (var i = startHis; i > endHis; i--) {
+    for (startHis + 1; startHis > endHis; startHis--) {
     lineIndex--
+    console.log(lineIndex)
     console.log(startHis)
     var lineItem = document.getElementById("history" + lineIndex)
-    lineItem.append(localStorage[localStorage.getItem("index") - i])
+    lineItem.append(localStorage[localStorage.getItem("index") - lineIndex])
 
     }
 }
