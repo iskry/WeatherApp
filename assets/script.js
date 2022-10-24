@@ -1,11 +1,13 @@
 var api_key = "7ee0556fd27777e1ec83e88a645a43fd"
 var increm = (localStorage.getItem('index')) ? localStorage.getItem('index'):0
+var searchHistory = document.getElementById("searchHistory")
 
-
+historyHandler()
 
 document.getElementById("searchBtn").addEventListener("click", function(event) {
     event.preventDefault()
     weatherData()
+    historyHandler()
 })
 
 function weatherData() {
@@ -29,3 +31,19 @@ function weatherData() {
     }
     )
 }
+
+
+function historyHandler() {if (localStorage.length > 0) {
+    var lineIndex = 5
+    var startHis = localStorage.index 
+    var endHis = localStorage.index - 5
+    for (var i = startHis; i > endHis; i--) {
+    lineIndex--
+    console.log(startHis)
+    var lineItem = document.getElementById("history" + lineIndex)
+    lineItem.append(localStorage[localStorage.getItem("index") - i])
+
+    }
+}
+}
+
