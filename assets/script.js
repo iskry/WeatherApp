@@ -25,7 +25,7 @@ function weatherData() {
             increm++
             localStorage.setItem("index", increm)
             localStorage.setItem(increm, data["city"].name)
-            console.log(localStorage)
+            historyHandler()
         })
     }
     )
@@ -38,12 +38,19 @@ function historyHandler() {if (localStorage.length > 0) {
     var endHis = localStorage.index - 5
     for (startHis + 1; startHis > endHis; startHis--) {
     lineIndex--
-    console.log(lineIndex)
-    console.log(startHis)
     var lineItem = document.getElementById("history" + lineIndex)
-    lineItem.append(localStorage[localStorage.getItem("index") - lineIndex])
-
+    var searchHistoryItem = localStorage[localStorage.getItem("index") - lineIndex]
+    if (searchHistoryItem == undefined) {
+        lineItem.append("")
+    } else {
+        document.getElementById("prevSearchesHeader").classList.remove("invisible")
+        lineItem.textContent = ""
+        lineItem.classList.add("p-3")
+        lineItem.classList.add("m-4")
+        lineItem.classList.add("bg-dark")
+        lineItem.classList.add("text-white")
+        lineItem.append(searchHistoryItem)
     }
-}
+    }}
 }
 
