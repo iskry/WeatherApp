@@ -25,6 +25,7 @@ function weatherData() {
             increm++
             localStorage.setItem("index", increm)
             localStorage.setItem(increm, data["city"].name)
+            console.log(data)
             historyHandler()
         })
     }
@@ -46,7 +47,8 @@ function historyHandler() {if (localStorage.length > 0) {
         document.getElementById("prevSearchesHeader").classList.remove("invisible")
         lineItem.textContent = ""
         lineItem.classList.add("p-3")
-        lineItem.classList.add("m-4")
+        lineItem.classList.add("m-2")
+        lineItem.classList.add("w-100")
         lineItem.classList.add("bg-dark")
         lineItem.classList.add("text-white")
         lineItem.append(searchHistoryItem)

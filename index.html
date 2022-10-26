@@ -9,24 +9,68 @@
 </head>
 <body>
     <header class="">
-        <nav class="navbar navbar-dark bg-dark">
-            <h1 class="text-white">Weather Dashboard</h1> 
-            <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search City" aria-label="Search" id="searchInput">
-                <button class="btn btn-outline-success" type="submit" id="searchBtn">Search</button>
-            </form>
+        <nav class="d-flex navbar navbar-dark bg-dark">
+            <h1 class="text-white mx-4">Weather Dashboard</h1> 
         </nav>
-        <aside class="d-flex flex-row-reverse bd-highlight" id="searchHistory">
-            <ul>
-                <h2 class="p-2 invisible" id="prevSearchesHeader">Previous Searches</h2>
+    </header>
+    
+    <div class="d-flex flex-row-reverse">
+    <main class="d-flex mx-4  flex-sm-wrap">
+        <div class="card d-flex mb-7 m-4" style="width: 25rem;">
+             <!-- <img src="..." class="card-img-top" alt="..."> -->
+            <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            </div>
+         </div>
+
+         <div class="card d-flex mb-7 m-4" style="width: 25rem;">
+            <!-- <img src="..." class="card-img-top" alt="..."> -->
+           <div class="card-body">
+               <h5 class="card-title">Card title</h5>
+               <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+           </div>
+        </div>
+
+        <div class="card d-flex mb-7 m-4" style="width: 25rem;">
+            <!-- <img src="..." class="card-img-top" alt="..."> -->
+           <div class="card-body">
+               <h5 class="card-title">Card title</h5>
+               <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+           </div>
+        </div>
+
+        <div class="card d-flex mb-7 m-4" style="width: 25rem;">
+             <!-- <img src="..." class="card-img-top" alt="..."> -->
+            <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            </div>
+         </div>
+
+         
+        <div class="card d-flex mb-7 m-4" style="width: 25rem;">
+            <!-- <img src="..." class="card-img-top" alt="..."> -->
+           <div class="card-body">
+               <h5 class="card-title">Card title</h5>
+               <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+           </div>
+        </div>
+    </main>
+
+    <aside class="d-flex bd-highlight m-2 flex-column w-25" id="searchHistory">
+        <form class="d-flex flex-column" role="search">
+            <input class="form-control" type="search" placeholder="Search City" aria-label="Search" id="searchInput">
+            <button class="btn btn-outline-success m-2" type="submit" id="searchBtn">Search</button>
+        </form>
+            <h3 class="invisible w-100 text-center"   id="prevSearchesHeader">Previous Searches</h3>
                <li id="history0" style="list-style: none;"></li> 
                <li id="history1" style="list-style: none;"></li> 
                <li id="history2" style="list-style: none;"></li> 
                <li id="history3" style="list-style: none;"></li> 
                <li id="history4" style="list-style: none;"></li> 
-            </ul>
-        </aside>
-    </header>
+    </aside>
+    </div>
     <script src="./assets/script.js"></script>
 </body>
 </html>
