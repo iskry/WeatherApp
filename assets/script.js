@@ -4,6 +4,11 @@ var searchHistory = document.getElementById("searchHistory")
 var historyContainer = document.getElementById("histContainer")
 var weatherCardsContainer = document.getElementById("weatherCards")
 
+
+// to do: fix history links
+// use moment js to convert dates and then filter to 5 days
+// use blob to pull icon? 
+
 historyHandler()
 
 document.getElementById("searchBtn").addEventListener("click", function(event) {
