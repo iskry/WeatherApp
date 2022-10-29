@@ -4,6 +4,8 @@ var increm = (localStorage.getItem('index')) ? localStorage.getItem('index'):0
 var searchHistory = document.getElementById("searchHistory")
 var historyContainer = document.getElementById("histContainer")
 var weatherCardsContainer = document.getElementById("weatherCards")
+var currentWeatherContainer = document.getElementById("currentWeatherCard")
+
 
 
 
@@ -36,6 +38,45 @@ function weatherData() {
             // response returns json
             return response.json()
         }).then(function (data) {
+
+            // current weather handler 
+            fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${data.city.coord.lat}&lon=${data.city.coord.lon}&units=metric&exclude=minutely,hourly,alerts&appid=${api_key}`)
+            .then(function (response) {
+                return response.json()
+            }).then(function (data)
+            {
+                console.log(data)
+                currentWeatherContainer.innerText = ""
+
+                                // create weathercard HTML
+                                var currentWeatherDiv = document.createElement("div")
+                                currentWeatherContainer.appendChild(currentWeatherDiv)
+                                currentWeatherDiv.classList.add("card")
+                                currentWeatherDiv.classList.add("m-3")
+                                var currentWeatherBody = document.createElement("div")
+                                currentWeatherDiv.appendChild(currentWeatherBody)
+                                currentWeatherBody.classList.add("card-body")
+                                var currentWeatherData = data.main
+                                // uses momentJS to convert weather
+                                var dateResults  = moment(currentWeatherData.dt).format('lll')
+                                // appends weather data
+                                var date = ("Current Date: " + dateResults )
+                                var temp = ("Temp: " + data.main.temp + "\n")
+                                var humidity = ("Humidity: " + data.main.humidity + "\n")
+                                var wind = ("Wind:  " + data.wind.speed + "\n")
+                                var currentWeatherIcon = data.weather[0].icon
+                                var currentimg = document.createElement("img")
+                                currentimg.src = "http://openweathermap.org/img/wn/"+ currentWeatherIcon + "@" + "2x.png"
+                                currentWeatherBody.innerHTML = date + "<br/>"  + temp + "<br/>"  + humidity + "<br/>"  + wind +  "<br/>"  
+                                currentWeatherBody.append(currentimg)
+                                // styling
+                                currentWeatherBody.classList.add("bg-dark")
+                                currentWeatherBody.classList.add("text-white")
+                                currentWeatherBody.style.minWidth = "155px"
+                                currentWeatherBody.style.minHeight = "200px"
+
+
+            })
             // increments value for search index. index should equal total searches. used to pull history
             increm++
             // stores increment value into localstorage
@@ -82,12 +123,12 @@ function weatherData() {
                 weatherCardBodyDiv.classList.add("card-body")
                 var weatherData = data.list[i]
                 // uses momentJS to convert weather
-                var dateResults  = moment(weatherData.dt_txt).format("YYYY/MM/DD")
+                var dateResults  = moment(weatherData.dt_txt).format('YYYY/MM/DD')
                 // appends weather data
-                weatherCardBodyDiv.append("Date " + dateResults + "\n")
-                weatherCardBodyDiv.append("Temp " + data.list[i].main.temp + "\n")
-                weatherCardBodyDiv.append("Humidity " + data.list[i].main.humidity + "\n")
-                weatherCardBodyDiv.append("Wind  " + data.list[i].wind.speed + "\n")
+                weatherCardBodyDiv.append("Date: " + dateResults + "\n")
+                weatherCardBodyDiv.append("Temp: " + data.list[i].main.temp + "\n")
+                weatherCardBodyDiv.append("Humidity: " + data.list[i].main.humidity + "\n")
+                weatherCardBodyDiv.append("Wind:  " + data.list[i].wind.speed + "\n")
                 var weatherIcon = data.list[i].weather[0].icon
                 var img = document.createElement("img")
                 img.src = "http://openweathermap.org/img/wn/"+ weatherIcon + "@" + "2x.png"
@@ -99,10 +140,9 @@ function weatherData() {
                 weatherCardBodyDiv.style.maxHeight = "200px"
                 }
             }
-        }
-        )
+        })
     }
-        )} 
+)} 
 
 // history handler using localstorage. uses previous incrememnted index stored in localstorage
 for (var i = localStorage.index;  i > 0 ; i--) {
