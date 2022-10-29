@@ -17,15 +17,17 @@ function weatherData() {
     var cityName = document.getElementById("searchInput").value
     fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&appid=${api_key}`)
     .then(function (response) {
+
         return response.json()
-    }).then(function (data) {
-        if (data[0] == undefined) {
-            alert("Please input a city")
-        } else
-        fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${data[0].lat}&lon=${data[0].lon}&units=metric&exclude=minutely,hourly,alerts&appid=${api_key}`)
+        }).then(function (data) {
+            if (data[0] == undefined) {
+                alert("Please input a city")
+            } else
+            fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${data[0].lat}&lon=${data[0].lon}&units=metric&exclude=minutely,hourly,alerts&appid=${api_key}`)
         .then(function (response) {
             return response.json()
         }).then(function (data) {
+            console.log(data)
             increm++
             localStorage.setItem("index", increm)
             localStorage.setItem(increm, data["city"].name)
@@ -53,7 +55,7 @@ function weatherData() {
             
             console.log(data)
             weatherCardsContainer.innerText = ""
-            for (var i = 0; i <= 40; i++) {
+            for (var i = 0; i <= 39; i++) {
                 if (i % 8 === 0) {
                 console.log(i)
                 var weatherCardDiv = document.createElement("div")
@@ -66,22 +68,26 @@ function weatherData() {
                 weatherCardBodyDiv.classList.add("card-body")
                 var weatherData = data.list[i]
 
-                var dateResults  = moment(weatherData.dt_txt).format("YYYYMMDD")
-
+                var dateResults  = moment(weatherData.dt_txt).format("YYYY/MM/DD")
+    
                 weatherCardBodyDiv.append("Date " + dateResults + "\n")
                 weatherCardBodyDiv.append("Temp " + data.list[i].main.temp + "\n")
                 weatherCardBodyDiv.append("Humidity " + data.list[i].main.humidity + "\n")
-                weatherCardBodyDiv.append(data.list[i].weather[0].icon + "\n")
-                weatherCardBodyDiv.classList.add("bg-light")
-                weatherCardBodyDiv.style.maxWidth = "105px"
-                weatherCardBodyDiv.style.minHeight = "100px"
-            }   
-        }       
-        })
-    }
-    )
-}
+                var weatherIcon = data.list[i].weather[0].icon
+                var img = document.createElement("img")
+                img.src = "http://openweathermap.org/img/wn/"+ weatherIcon + "@" + "2x.png"
+                weatherCardBodyDiv.append(img)
 
+                weatherCardBodyDiv.classList.add("bg-light")
+                weatherCardBodyDiv.style.maxWidth = "155px"
+                weatherCardBodyDiv.style.minHeight = "50px"
+                weatherCardBodyDiv.style.maxHeight = "200px"
+                }
+            }
+        }
+        )
+    }
+        )} 
 for (var i = localStorage.index;  i > 0 ; i--) {
     if (i === localStorage.index - 5) {
         break
@@ -107,6 +113,7 @@ for (var i = localStorage.index;  i > 0 ; i--) {
     allHistoryButtons.forEach(function(button) {
         button.addEventListener("click", function() {
             document.getElementById("searchInput").value = button.innerText
+
         })
         
     }
