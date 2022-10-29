@@ -4,7 +4,6 @@ var searchHistory = document.getElementById("searchHistory")
 var historyContainer = document.getElementById("histContainer")
 var weatherCardsContainer = document.getElementById("weatherCards")
 
-// use moment js to convert dates and then filter to 5 days
 // use blob to pull icon? 
 
 
@@ -32,7 +31,7 @@ function weatherData() {
             localStorage.setItem(increm, data["city"].name)
             var recentInput = document.createElement("button")
 
-            document.getElementById("sessionSearchesHeader").appendChild(recentInput)
+            document.getElementById("sessionSearchesContainer").appendChild(recentInput)
             document.getElementById("sessionSearchesHeader").classList.remove("invisible")
             recentInput.classList.add("bg-dark")
             recentInput.classList.add("text-white")
@@ -54,8 +53,9 @@ function weatherData() {
             
             console.log(data)
             weatherCardsContainer.innerText = ""
-            for (i = 0; i <= 6; i++) {
-                
+            for (var i = 0; i <= 40; i++) {
+                if (i % 8 === 0) {
+                console.log(i)
                 var weatherCardDiv = document.createElement("div")
                 weatherCardsContainer.appendChild(weatherCardDiv)
                 weatherCardDiv.classList.add("card")
@@ -65,14 +65,18 @@ function weatherData() {
                 weatherCardDiv.appendChild(weatherCardBodyDiv)
                 weatherCardBodyDiv.classList.add("card-body")
                 var weatherData = data.list[i]
-                weatherCardBodyDiv.append(weatherData.dt_txt)
-                weatherCardBodyDiv.classList.add("bg-light")
-                weatherCardBodyDiv.style.minWidth = "200px"
-                weatherCardBodyDiv.style.minHeight = "100px"
 
-                
+                var dateResults  = moment(weatherData.dt_txt).format("YYYYMMDD")
+
+                weatherCardBodyDiv.append("Date " + dateResults + "\n")
+                weatherCardBodyDiv.append("Temp " + data.list[i].main.temp + "\n")
+                weatherCardBodyDiv.append("Humidity " + data.list[i].main.humidity + "\n")
+                weatherCardBodyDiv.append(data.list[i].weather[0].icon + "\n")
+                weatherCardBodyDiv.classList.add("bg-light")
+                weatherCardBodyDiv.style.maxWidth = "105px"
+                weatherCardBodyDiv.style.minHeight = "100px"
             }   
-            
+        }       
         })
     }
     )
