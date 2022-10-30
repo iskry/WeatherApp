@@ -9,7 +9,6 @@ var currentWeatherContainer = document.getElementById("currentWeatherCard")
 
 
 
-
 // search button handler
 document.getElementById("searchBtn").addEventListener("click", function(event) {
     // prevents click default behavior
@@ -48,32 +47,33 @@ function weatherData() {
                 console.log(data)
                 currentWeatherContainer.innerText = ""
 
-                                // create weathercard HTML
-                                var currentWeatherDiv = document.createElement("div")
-                                currentWeatherContainer.appendChild(currentWeatherDiv)
-                                currentWeatherDiv.classList.add("card")
-                                currentWeatherDiv.classList.add("m-3")
-                                var currentWeatherBody = document.createElement("div")
-                                currentWeatherDiv.appendChild(currentWeatherBody)
-                                currentWeatherBody.classList.add("card-body")
-                                var currentWeatherData = data.main
-                                // uses momentJS to convert weather
-                                var dateResults  = moment(currentWeatherData.dt).format('lll')
-                                // appends weather data
-                                var date = ("Current Date: " + dateResults )
-                                var temp = ("Temp: " + data.main.temp + "\n")
-                                var humidity = ("Humidity: " + data.main.humidity + "\n")
-                                var wind = ("Wind:  " + data.wind.speed + "\n")
-                                var currentWeatherIcon = data.weather[0].icon
-                                var currentimg = document.createElement("img")
-                                currentimg.src = "http://openweathermap.org/img/wn/"+ currentWeatherIcon + "@" + "2x.png"
-                                currentWeatherBody.innerHTML = date + "<br/>"  + temp + "<br/>"  + humidity + "<br/>"  + wind +  "<br/>"  
-                                currentWeatherBody.append(currentimg)
-                                // styling
-                                currentWeatherBody.classList.add("bg-dark")
-                                currentWeatherBody.classList.add("text-white")
-                                currentWeatherBody.style.minWidth = "155px"
-                                currentWeatherBody.style.minHeight = "200px"
+                // create weathercard HTML
+                var currentWeatherDiv = document.createElement("div")
+                currentWeatherContainer.appendChild(currentWeatherDiv)
+                currentWeatherDiv.classList.add("card")
+                currentWeatherDiv.classList.add("m-3")
+                var currentWeatherBody = document.createElement("div")
+                currentWeatherDiv.appendChild(currentWeatherBody)
+                currentWeatherBody.classList.add("card-body")
+                var currentWeatherData = data.main
+                // uses momentJS to convert weather
+                var dateResults  = moment(currentWeatherData.dt).format('lll')
+                // appends weather data
+                var date = ("Current Date: " + dateResults )
+                var temp = ("Temp: " + data.main.temp + "\n")
+                var humidity = ("Humidity: " + data.main.humidity + "\n")
+                var wind = ("Wind:  " + data.wind.speed + "\n")
+                //grabs weather icon for url
+                var currentWeatherIcon = data.weather[0].icon
+                var currentimg = document.createElement("img")
+                currentimg.src = "http://openweathermap.org/img/wn/"+ currentWeatherIcon + "@" + "2x.png"
+                currentWeatherBody.innerHTML = date + "<br/>"  + temp + "<br/>"  + humidity + "<br/>"  + wind +  "<br/>"  
+                currentWeatherBody.append(currentimg)
+                // styling
+                currentWeatherBody.classList.add("bg-dark")
+                currentWeatherBody.classList.add("text-white")
+                currentWeatherBody.style.minWidth = "155px"
+                currentWeatherBody.style.minHeight = "200px"
 
 
             })
@@ -83,28 +83,6 @@ function weatherData() {
             localStorage.setItem("index", increm)
             // stores current increment value and city name
             localStorage.setItem(increm, data["city"].name)
-            // creates current session searches 
-            var recentInput = document.createElement("button")
-            // appends current session searches to html
-            document.getElementById("sessionSearchesContainer").appendChild(recentInput)
-            // unhides section
-            document.getElementById("sessionSearchesHeader").classList.remove("invisible")
-            // styling
-            recentInput.classList.add("bg-dark")
-            recentInput.classList.add("text-white")
-            recentInput.classList.add("btn")
-            recentInput.classList.add("m-1")
-            recentInput.classList.add("p-2")
-            recentInput.setAttribute('id', "history" + i)
-            recentInput.innerText = data.city.name
-            
-            var HistoryButtons = document.querySelectorAll("button:not(#searchBtn)")
-            // event listner for history buttons
-            HistoryButtons.forEach(function(button) {
-                button.addEventListener("click", function() {
-                    document.getElementById("searchInput").value = button.innerText
-                })              
-            })
 
 
             // blanks weather carderText = ""
@@ -144,9 +122,13 @@ function weatherData() {
     }
 )} 
 
+
+// interval to check if new item in localstorage
+setInterval(function() {
+    historyContainer.innerText = ""   
 // history handler using localstorage. uses previous incrememnted index stored in localstorage
 for (var i = localStorage.index;  i > 0 ; i--) {
-    // returns only 5 items from local storage
+     // returns only 5 items from local storage
     if (i === localStorage.index - 5) {
         break
     } else
@@ -163,20 +145,27 @@ for (var i = localStorage.index;  i > 0 ; i--) {
     lineItem.classList.add("p-2")
     lineItem.setAttribute('id', "history" + i)
     lineItem.innerText = searchHistoryItem
+} 
 
+} 
+}, 1000)
+
+
+
+// interval to add event listeners to history buttons and any newly added history buttons
+setInterval( () => {
     var allHistoryButtons = document.querySelectorAll("button:not(#searchBtn)")
     // eventlistener for history buttons
     allHistoryButtons.forEach(function(button) {
         button.addEventListener("click", function() {
-            document.getElementById("searchInput").value = button.innerText
-
+            document.getElementById("searchInput").value = this.innerText
+            document.getElementById("searchBtn").click()
+            
         })
         
     }
     )
-} 
-
-}
+},1000
 
 
-
+)
