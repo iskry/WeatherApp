@@ -33,14 +33,14 @@ function weatherData() {
                 alert("Please input a city")
             } else
             // daily fetch takes lat and lon from previous fetch
-            fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${data[0].lat}&lon=${data[0].lon}&units=metric&exclude=minutely,hourly,alerts&appid=${api_key}`)
+            fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${data[0].lat}&lon=${data[0].lon}&units=imperial&exclude=minutely,hourly,alerts&appid=${api_key}`)
         .then(function (response) {
             // response returns json
             return response.json()
         }).then(function (data) {
 
             // current weather handler 
-            fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${data.city.coord.lat}&lon=${data.city.coord.lon}&units=metric&exclude=minutely,hourly,alerts&appid=${api_key}`)
+            fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${data.city.coord.lat}&lon=${data.city.coord.lon}&units=imperial&exclude=minutely,hourly,alerts&appid=${api_key}`)
             .then(function (response) {
                 return response.json()
             }).then(function (data)
