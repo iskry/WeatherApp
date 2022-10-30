@@ -109,7 +109,7 @@ function weatherData() {
                 weatherCardBodyDiv.append("Wind:  " + data.list[i].wind.speed + "\n")
                 var weatherIcon = data.list[i].weather[0].icon
                 var img = document.createElement("img")
-                img.src = "http://openweathermap.org/img/wn/"+ weatherIcon + "@" + "2x.png"
+                img.src = "https://openweathermap.org/img/wn/"+ weatherIcon + "@" + "2x.png"
                 weatherCardBodyDiv.append(img)
                 // styling
                 weatherCardBodyDiv.classList.add("bg-light")
