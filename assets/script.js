@@ -22,7 +22,7 @@ function weatherData() {
     // search input
     var cityName = document.getElementById("searchInput").value
     // initial fetch for searches lat and lon for next fetch
-    fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&appid=${api_key}`)
+    fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${cityName}&appid=${api_key}`)
     .then(function (response) {
         // response returns in json 
         return response.json()
@@ -66,7 +66,7 @@ function weatherData() {
                 //grabs weather icon for url
                 var currentWeatherIcon = data.weather[0].icon
                 var currentimg = document.createElement("img")
-                currentimg.src = "http://openweathermap.org/img/wn/"+ currentWeatherIcon + "@" + "2x.png"
+                currentimg.src = "https://openweathermap.org/img/wn/"+ currentWeatherIcon + "@" + "2x.png"
                 currentWeatherBody.innerHTML = date + "<br/>"  + temp + "<br/>"  + humidity + "<br/>"  + wind +  "<br/>"  
                 currentWeatherBody.append(currentimg)
                 // styling
